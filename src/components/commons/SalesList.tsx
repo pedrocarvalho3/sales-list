@@ -50,7 +50,7 @@ export default function SalesList() {
       <div className="mb-4">
         <Button
           onClick={() => router.push('/sales/new')}
-          className="bg-teal-500 transition-all duration-200 hover:bg-teal-400"
+          className="bg-teal-500 font-bold transition-all duration-200 hover:bg-teal-400"
         >
           <Plus className="h-4 w-4" />
           Novo
@@ -128,7 +128,7 @@ export default function SalesList() {
               />
               <Button
                 onClick={handleSave}
-                className="mt-4 bg-teal-500 hover:bg-teal-400"
+                className="mt-4 bg-teal-500 font-bold transition-all duration-200 hover:bg-teal-400"
               >
                 Salvar
               </Button>
