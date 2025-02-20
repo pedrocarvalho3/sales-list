@@ -1,49 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with
-[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto Listagem de Vendas
 
-## Getting Started
+## Ideia
+O objetivo deste projeto é permitir que o usuário liste, cadastre, edite e exclua vendas.
 
-First, run the development server:
+## Requisitos
+- Ao **editar** uma venda, um modal deve ser aberto com os dados já preenchidos.
+- Ao **deletar** uma venda, apenas aquela venda específica deve ser removida.
+- Ao clicar em **"Novo"**, o usuário deve ser redirecionado para uma nova tela de cadastro de vendas.
+- Ao clicar no botão **"Salvar"**, o usuário deve ser redirecionado para a tela de listagem de vendas.
+- O projeto inicia com 3 dados **mockados**, contendo os campos **Nome**, **Valor** e **ID**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tecnologias Utilizadas
+- **React** com **Next.js**
+- **Zustand** para gerenciamento de estado
+- **Zod** para validação de formulário
+- **React Hook Form** para manipulação de formulários
+- **UUID** para geração de IDs únicos
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
+## Estrutura do Projeto
+O projeto é estruturado de forma modular, contendo os seguintes componentes principais:
 
-You can start editing the page by modifying `app/page.tsx`. The page
-auto-updates as you edit the file.
+### **1. Formulário de Vendas (`SaleForm.tsx`)**
+Componente responsável por capturar os dados de uma venda e validá-los antes do envio.
 
-This project uses
-[`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
-to automatically optimize and load [Geist](https://vercel.com/font), a new font
-family for Vercel.
+### **2. Estado Global (`useSalesStore.ts`)**
+Gerenciamento centralizado das vendas utilizando a biblioteca **Zustand**, garantindo manipulação eficiente dos dados.
 
-## Learn More
+### **3. Listagem de Vendas (`SalesList.tsx`)**
+Componente responsável por exibir a lista de vendas, possibilitando edição e remoção.
 
-To learn more about Next.js, take a look at the following resources:
+### **4. Tela de Cadastro de Venda (`NewSaleForm.tsx`)**
+Interface onde novas vendas podem ser adicionadas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Como Rodar o Projeto
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/pedrocarvalho3/sales-list.git
+   ```
+2. Instale as dependências:
+   ```bash
+   npm install
+   # ou
+   yarn install
+   ```
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   ```
+4. Acesse o projeto no navegador em `http://localhost:3000`
 
-You can check out
-[the Next.js GitHub repository](https://github.com/vercel/next.js) - your
-feedback and contributions are welcome!
+## Melhorias Futuras
+- Integração com uma API para persistência dos dados.
+- Implementação de autenticação de usuários.
+- Adição de filtros e ordenação na listagem de vendas.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
-
-Check out our
-[Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
-for more details.
+## Autor
+- Nome: Pedro Vinícius de Carvalho
