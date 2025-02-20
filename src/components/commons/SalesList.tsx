@@ -15,6 +15,8 @@ import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
 import useSalesStore from '@/store/salesStore';
 import { SaleForm } from './SaleForm';
+import { toast } from '@/hooks/use-toast';
+import { Toaster } from '../ui/toaster';
 
 interface Sale {
   id: string;
@@ -45,6 +47,10 @@ export default function SalesList() {
         name,
         amount: value,
       };
+      toast({
+        title: 'Sucesso!',
+        description: 'Venda atualizada com sucesso!',
+      });
       updateSale(updatedSale);
     }
     setIsModalOpen(false);
@@ -52,6 +58,7 @@ export default function SalesList() {
 
   return (
     <main>
+      <Toaster />
       <div className="mb-4">
         <Button
           onClick={() => router.push('/sales/new')}

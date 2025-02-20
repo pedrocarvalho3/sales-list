@@ -10,10 +10,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 const schema = z.object({
   name: z.string().min(2, { message: 'Nome é obrigatório' }),
   value: z
-    .string()
-    .min(1, { message: 'Valor é obrigatório' })
-    .transform(val => parseFloat(val.replace(',', '.')))
-    .refine(val => Number(val) > 0, {
+    .any()
+    .transform(val => String(val).replace(',', '.'))
+    .refine(val => val.trim() !== '', { message: 'Valor é obrigatório' })
+    .transform(val => parseFloat(val))
+    .refine(val => !isNaN(val) && val > 0, {
       message: 'O valor deve ser maior que 0',
     }),
 });
