@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Listagem de Vendas',
-  description: 'Projeto para Listagem de Vendas',
+  title: 'Lista de Vendas',
+  description: 'Projeto para Lista de Vendas',
 };
 
 export default function RootLayout({
@@ -27,7 +27,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <main className="mx-auto flex min-h-screen max-w-6xl items-center justify-center">
+          {children}
+        </main>
       </body>
     </html>
   );
