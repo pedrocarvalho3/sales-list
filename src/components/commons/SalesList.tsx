@@ -14,6 +14,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
 import { Input } from '../ui/input';
+import useSalesStore from '@/store/salesStore';
 
 interface Sale {
   id: number;
@@ -21,20 +22,15 @@ interface Sale {
   amount: number;
 }
 
-const initialSales: Sale[] = [
-  { id: 1, name: 'Jose', amount: 100.0 },
-  { id: 2, name: 'Tiago', amount: 150.5 },
-  { id: 3, name: 'Antonio', amount: 75.25 },
-];
-
 export default function SalesList() {
-  const [sales, setSales] = useState<Sale[]>(initialSales);
+  const { sales, deleteSale, updateSale } = useSalesStore();
+
   const [editingSale, setEditingSale] = useState<Sale | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const handleDelete = (id: number) => {
-    setSales(sales.filter(sale => sale.id !== id));
+    deleteSale(id);
   };
 
   const handleEdit = (sale: Sale) => {
@@ -44,17 +40,13 @@ export default function SalesList() {
 
   const handleSave = () => {
     if (editingSale) {
-      setSales(prevSales =>
-        prevSales.map(sale =>
-          sale.id === editingSale.id ? editingSale : sale,
-        ),
-      );
+      updateSale(editingSale);
     }
     setIsModalOpen(false);
   };
 
   return (
-    <main className="w-full">
+    <main>
       <div className="mb-4">
         <Button
           onClick={() => router.push('/sales/new')}
