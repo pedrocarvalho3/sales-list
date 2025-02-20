@@ -15,9 +15,10 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import useSalesStore from '@/store/salesStore';
 import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 
 export default function NewSaleForm() {
-  const { addSale, sales } = useSalesStore();
+  const { addSale } = useSalesStore();
   const [name, setName] = useState('');
   const [value, setValue] = useState('');
 
@@ -25,19 +26,15 @@ export default function NewSaleForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    addSale({
-      id: sales.length + 1,
-      name,
-      amount: parseFloat(value),
-    });
+    addSale(name, parseFloat(value));
     setName('');
     setValue('');
     router.back();
   };
 
   return (
-    <div className="container mx-auto">
-      <Card className="mx-auto max-w-md">
+    <div className="container mx-auto max-w-md">
+      <Card>
         <CardHeader>
           <CardTitle className="mb-2 text-center text-2xl">
             Adicionar nova Venda
@@ -76,6 +73,16 @@ export default function NewSaleForm() {
           </form>
         </CardContent>
       </Card>
+
+      <Button
+        variant="link"
+        size="icon"
+        onClick={() => router.back()}
+        className="text-md ml-4 mt-2 text-teal-500 transition-all duration-200 hover:text-teal-400"
+      >
+        <ArrowLeft className="h-8 w-8" />
+        Voltar
+      </Button>
     </div>
   );
 }
