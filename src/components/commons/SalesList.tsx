@@ -38,12 +38,12 @@ export default function SalesList() {
     setIsModalOpen(true);
   };
 
-  const handleSave = (name: string, value: string) => {
+  const handleSave = (name: string, value: number) => {
     if (editingSale) {
       const updatedSale = {
         ...editingSale,
         name,
-        amount: parseFloat(value),
+        amount: value,
       };
       updateSale(updatedSale);
     }
@@ -112,7 +112,7 @@ export default function SalesList() {
           <DialogTitle className="text-xl">Editar Venda</DialogTitle>
           <SaleForm
             initialName={editingSale?.name}
-            initialValue={editingSale?.amount.toString()}
+            initialValue={editingSale?.amount}
             onSubmit={handleSave}
             isEditing
           />

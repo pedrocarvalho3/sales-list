@@ -3,51 +3,70 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+const schema = z.object({
+  name: z.string().min(2, { message: 'Nome é obrigatório' }),
+  value: z
+    .string()
+    .min(1, { message: 'Valor é obrigatório' })
+    .transform(val => parseFloat(val.replace(',', '.')))
+    .refine(val => Number(val) > 0, {
+      message: 'O valor deve ser maior que 0',
+    }),
+});
 
 interface SaleFormProps {
   initialName?: string;
-  initialValue?: string;
-  onSubmit: (name: string, value: string) => void;
+  initialValue?: number;
+  onSubmit: (name: string, value: number) => void;
   isEditing?: boolean;
 }
 
 export function SaleForm({
   initialName = '',
-  initialValue = '',
+  initialValue = 0,
   onSubmit,
   isEditing = false,
 }: SaleFormProps) {
-  const [name, setName] = useState(initialName);
-  const [value, setValue] = useState(initialValue);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: initialName,
+      value: initialValue,
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(name, value);
+  const onSubmitForm = (data: { name: string; value: number }) => {
+    onSubmit(data.name, data.value);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmitForm)} className="space-y-4">
       <div className="space-y-2">
         <Label htmlFor="name">Nome</Label>
-        <Input
-          id="name"
-          placeholder="Insira o nome"
-          value={name}
-          onChange={e => setName(e.target.value)}
-          required
-        />
+        <Input id="name" placeholder="Insira o nome" {...register('name')} />
+        {errors.name && (
+          <p className="text-sm text-red-500">{errors.name.message}</p>
+        )}
       </div>
       <div className="space-y-2">
         <Label htmlFor="value">Valor</Label>
         <Input
           id="value"
-          type="number"
+          type="text"
           placeholder="Insira o valor"
-          value={value.toString()}
-          onChange={e => setValue(e.target.value)}
-          required
+          {...register('value')}
         />
+        {errors.value && (
+          <p className="text-sm text-red-500">{errors.value.message}</p>
+        )}
       </div>
       <div className="flex gap-2">
         <Button

@@ -17,8 +17,8 @@ export default function NewSaleForm() {
   const { addSale } = useSalesStore();
   const router = useRouter();
 
-  const handleSubmit = (name: string, value: string) => {
-    addSale(name, parseFloat(value));
+  const handleSubmit = (name: string, value: number) => {
+    addSale(name, value);
     router.back();
   };
 
