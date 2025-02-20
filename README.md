@@ -12,6 +12,7 @@ O objetivo deste projeto é permitir que o usuário liste, cadastre, edite e exc
 
 ## Tecnologias Utilizadas
 - **React** com **Next.js**
+- **Tailwind** para estilização
 - **Zustand** para gerenciamento de estado
 - **Zod** para validação de formulário
 - **React Hook Form** para manipulação de formulários
