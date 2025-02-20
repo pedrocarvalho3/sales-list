@@ -17,7 +17,7 @@ import useSalesStore from '@/store/salesStore';
 import { SaleForm } from './SaleForm';
 
 interface Sale {
-  id: number;
+  id: string;
   name: string;
   amount: number;
 }
@@ -29,7 +29,7 @@ export default function SalesList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     deleteSale(id);
   };
 
