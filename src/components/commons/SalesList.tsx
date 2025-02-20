@@ -13,8 +13,8 @@ import {
 } from '../ui/table';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogTitle } from '../ui/dialog';
-import { Input } from '../ui/input';
 import useSalesStore from '@/store/salesStore';
+import { SaleForm } from './SaleForm';
 
 interface Sale {
   id: number;
@@ -38,9 +38,14 @@ export default function SalesList() {
     setIsModalOpen(true);
   };
 
-  const handleSave = () => {
+  const handleSave = (name: string, value: string) => {
     if (editingSale) {
-      updateSale(editingSale);
+      const updatedSale = {
+        ...editingSale,
+        name,
+        amount: parseFloat(value),
+      };
+      updateSale(updatedSale);
     }
     setIsModalOpen(false);
   };
@@ -83,7 +88,7 @@ export default function SalesList() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="mr-2 bg-teal-200"
+                    className="mr-2 bg-yellow-100 hover:bg-yellow-200"
                     onClick={() => handleEdit(sale)}
                   >
                     <Pencil className="h-4 w-4" />
@@ -91,7 +96,7 @@ export default function SalesList() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="bg-red-200"
+                    className="bg-red-200 hover:bg-red-300"
                     onClick={() => handleDelete(sale.id)}
                   >
                     <Trash2 className="h-4 w-4" />
@@ -105,35 +110,12 @@ export default function SalesList() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent>
           <DialogTitle className="text-xl">Editar Venda</DialogTitle>
-          {editingSale && (
-            <div>
-              <Input
-                type="text"
-                value={editingSale.name}
-                onChange={e =>
-                  setEditingSale({ ...editingSale, name: e.target.value })
-                }
-                className="w-full border p-2"
-              />
-              <Input
-                type="number"
-                value={editingSale.amount}
-                onChange={e =>
-                  setEditingSale({
-                    ...editingSale,
-                    amount: Number(e.target.value),
-                  })
-                }
-                className="mt-2 w-full border p-2"
-              />
-              <Button
-                onClick={handleSave}
-                className="mt-4 bg-teal-500 font-bold transition-all duration-200 hover:bg-teal-400"
-              >
-                Salvar
-              </Button>
-            </div>
-          )}
+          <SaleForm
+            initialName={editingSale?.name}
+            initialValue={editingSale?.amount.toString()}
+            onSubmit={handleSave}
+            isEditing
+          />
         </DialogContent>
       </Dialog>
     </main>
