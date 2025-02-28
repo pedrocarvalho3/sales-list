@@ -69,12 +69,14 @@ export default function SalesList() {
         </Button>
       </div>
       <div className="overflow-x-auto">
-        <Table className="min-w-full border border-gray-200 bg-white text-lg">
+        <Table className="min-w-full border border-gray-200 bg-white text-base md:text-lg">
           <TableHeader>
             <TableRow className="bg-teal-100">
-              <TableHead className="border-b px-4 py-2">Nome</TableHead>
-              <TableHead className="border-b px-4 py-2">Valor</TableHead>
-              <TableHead className="border-b px-4 py-2 text-right">
+              <TableHead className="border-b px-2 py-2 md:px-4">Nome</TableHead>
+              <TableHead className="border-b px-2 py-2 md:px-4">
+                Valor
+              </TableHead>
+              <TableHead className="border-b px-2 py-2 text-right md:px-4">
                 Ações
               </TableHead>
             </TableRow>
@@ -82,23 +84,23 @@ export default function SalesList() {
           <TableBody>
             {sales.map(sale => (
               <TableRow key={sale.id} className="hover:bg-gray-50">
-                <TableCell className="border-b px-4 py-2">
+                <TableCell className="border-b px-2 py-2 md:px-4">
                   {sale.name}
                 </TableCell>
-                <TableCell className="border-b px-4 py-2">
+                <TableCell className="border-b px-2 py-2 md:px-4">
                   {sale.amount.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
                   })}
                 </TableCell>
-                <TableCell className="border-b px-4 py-2 text-right">
+                <TableCell className="border-b px-2 py-2 text-right md:px-4">
                   <Button
                     variant="outline"
                     size="icon"
-                    className="mr-2 bg-yellow-100 hover:bg-yellow-200"
+                    className="mr-1 bg-yellow-100 hover:bg-yellow-200 md:mr-2"
                     onClick={() => handleEdit(sale)}
                   >
-                    <Pencil className="h-4 w-4" />
+                    <Pencil className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>
                   <Button
                     variant="outline"
@@ -106,7 +108,7 @@ export default function SalesList() {
                     className="bg-red-200 hover:bg-red-300"
                     onClick={() => handleDelete(sale.id)}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
                   </Button>
                 </TableCell>
               </TableRow>
